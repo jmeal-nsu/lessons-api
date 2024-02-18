@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "lessons-api"
+version = "0.1.0"
+description = ""
+authors = ["TJesT <alexeynospid@gmail.com>"]
+readme = "README.md"
+packages = [{include = "lessons_api"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.109.2"
+pydantic = "^2.6.1"
+colorlog = "^6.8.2"
+uvicorn = "^0.27.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
