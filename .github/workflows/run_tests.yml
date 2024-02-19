@@ -8,7 +8,7 @@ on:
 jobs:
   test:
     name: Run pytest
-    runs-on: runs-on,runner=1cpu-linux,image=ubuntu22-full-x64
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
