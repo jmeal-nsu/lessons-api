@@ -12,7 +12,19 @@ fastapi = "^0.109.2"
 pydantic = "^2.6.1"
 colorlog = "^6.8.2"
 uvicorn = "^0.27.1"
+pydantic-settings = "^2.2.0"
 
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.0.1"
+pytest-asyncio = "^0.23.5"
+httpx = "^0.26.0"
+
+[tool.pytest.ini_options]
+testpaths = [
+    "./tests/logic",
+    "./tests/status",
+]
 
 [build-system]
 requires = ["poetry-core"]
