@@ -1,0 +1,26 @@
+name: Pytest with Poetry on Pull Request
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Run pytest
+    runs-on: runs-on,runner=1cpu-linux,image=ubuntu22-full-x64
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.12"
+      - name: Install Poetry
+        uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: "1.4.2"
+      - name: Install dependencies with Poetry
+        run: poetry install
+      - name: Run pytest
+        run: poetry run pytest
