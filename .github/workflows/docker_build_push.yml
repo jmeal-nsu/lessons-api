@@ -1,0 +1,46 @@
+name: Build and Push on dockerhub
+
+on:
+  workflow_dispatch:
+
+env:
+  DOCKER_REPO: ${{ secrets.DOCKER_USER }}/${{ github.event.repository.name }}
+
+jobs:
+  bash_get_version:
+    name: Get project version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.evaluation.outputs.value }}
+    steps:
+      - name: Checkout pyproject.toml
+        uses: action/acheckout@v4
+        sparse-checkout: pyproject.toml
+        sparse-checkout-cone-mode: false
+      - name: Evaluate version from file
+        id: evaluation
+        bash: cat pyproject.toml | awk 'FNR == 3 {print $3}' | tr -d '"'
+  
+  docker_build_push:
+    name: Push Docker image to Docker Hub
+    runs-on: windows-latest
+    needs: bash_get_version
+    outputs:
+      tag: ${{ steps.tag.outputs.value }}
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Login to Docker
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASS }}
+      - name: Push to Docker Hub
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: |
+            ${{ env.DOCKER_REPO }}:${{ needs.bash_get_version.outputs.version }}
+            ${{ env.DOCKER_REPO }}:latest

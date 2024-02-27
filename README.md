@@ -23,3 +23,8 @@ poetry install
 ```bash
 poetry run uvicorn src.main:app --port 8118 --host 0.0.0.0 --reload
 ```
+
+## Build with docker
+```bash
+docker build -t "tjest/lessons_api:$(poetry version -s)" .
+```
