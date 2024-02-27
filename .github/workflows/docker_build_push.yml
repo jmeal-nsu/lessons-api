@@ -15,7 +15,7 @@ jobs:
       version: ${{ steps.evaluation.outputs.value }}
     steps:
       - name: Checkout pyproject.toml
-        uses: action/acheckout@v4
+        uses: action/checkout@v4
         with:
           sparse-checkout: pyproject.toml
           sparse-checkout-cone-mode: false
