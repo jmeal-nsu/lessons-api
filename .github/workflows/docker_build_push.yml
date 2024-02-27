@@ -15,11 +15,12 @@ jobs:
     steps:
       - name: Checkout pyproject.toml
         uses: action/acheckout@v4
-        sparse-checkout: pyproject.toml
-        sparse-checkout-cone-mode: false
+        with:
+          sparse-checkout: pyproject.toml
+          sparse-checkout-cone-mode: false
       - name: Evaluate version from file
         id: evaluation
-        bash: cat pyproject.toml | awk 'FNR == 3 {print $3}' | tr -d '"'
+        run: cat pyproject.toml | awk 'FNR == 3 {print $3}' | tr -d '"'
   
   docker_build_push:
     name: Push Docker image to Docker Hub
