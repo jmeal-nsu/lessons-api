@@ -8,7 +8,7 @@ jobs:
     name: Get project version
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.evaluation.outputs.value }}
+      version: ${{ steps.evaluation.outputs.version }}
     steps:
       - name: Checkout pyproject.toml
         uses: actions/checkout@v4
@@ -26,8 +26,6 @@ jobs:
     needs: bash_get_version
     env:
       DOCKER_REPO: ${{ secrets.DOCKER_USER }}/${{ github.event.repository.name }}
-    outputs:
-      tag: ${{ steps.tag.outputs.value }}
     steps:
       - name: Print version
         run: echo ${{ needs.bash_get_version.outputs.version }}
