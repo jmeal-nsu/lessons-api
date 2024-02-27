@@ -1,6 +1,6 @@
 FROM python:3.12.2-slim
 
-COPY poetry.lock pyproject.toml ./
+COPY pyproject.toml ./
 COPY . ./project
 WORKDIR /project
 
