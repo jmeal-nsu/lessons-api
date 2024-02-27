@@ -17,7 +17,7 @@ jobs:
           sparse-checkout-cone-mode: false
       - name: Evaluate version from file
         id: evaluation
-        run: cat pyproject.toml | awk 'FNR == 3 {print $3}' | tr -d '"'
+        run: echo "version=$(cat pyproject.toml | awk 'FNR == 3 {print $3}' | tr -d '"')" >> "$GITHUB_OUTPUT"
   
   docker_build_push:
     name: Push Docker image to Docker Hub
