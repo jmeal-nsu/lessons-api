@@ -25,6 +25,7 @@ jobs:
   
   docker_build_push:
     name: Push Docker image to Docker Hub
+    environment: build
     runs-on: ubuntu-latest
     needs: bash_get_version
     outputs:
