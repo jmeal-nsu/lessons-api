@@ -1,6 +1,8 @@
 name: Build and Push on dockerhub
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
 
 env:
   DOCKER_REPO: ${{ secrets.DOCKER_USER }}/${{ github.event.repository.name }}
