@@ -1,0 +1,14 @@
+__pycache__/
+**/__pycache__/
+*.py[codx]
+
+pytest.ini
+tests/
+.pytest_cache/
+.gitignore
+
+README.md
+.git/
+.gitignore
+*.log
+
