@@ -2,6 +2,8 @@ name: Build and Push on dockerhub
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
 
 jobs:
   bash_get_version:
