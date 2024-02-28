@@ -66,7 +66,7 @@ jobs:
           password: ${{ secrets.SSH_PASS }}
           debug: true
           script: |
-            docker pull ${{ env.DOCKER_REPO }}:${{ env.DOCKER_TAG }}
-            docker stop ${{ env.GITHUB_REPO }}
-            docker remove ${{ env.GITHUB_REPO }}
+            docker pull ${{ env.DOCKER_REPO }}:${{ env.DOCKER_TAG }} > $null && ^
+            docker stop ${{ env.GITHUB_REPO }} > $null && ^
+            docker remove ${{ env.GITHUB_REPO }} > $null && ^
             docker run -d --name ${{ env.GITHUB_REPO }} ${{ env.DOCKER_REPO }}:${{ env.DOCKER_TAG }}
