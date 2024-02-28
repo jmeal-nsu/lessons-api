@@ -47,3 +47,25 @@ jobs:
           tags: |
             ${{ env.DOCKER_REPO }}:${{ needs.bash_get_version.outputs.version }}
             ${{ env.DOCKER_REPO }}:latest
+  
+  ssh_deploy:
+    environment: deploy
+    runs-on: ubuntu-latest
+    needs: [bash_get_version, docker_build_push]
+    env:
+      GITHUB_REPO: ${{ github.event.repository.name }}
+      DOCKER_REPO: ${{ secrets.DOCKER_USER }}/${{ env.GITHUB_REPO }}
+      DOCKER_IMAGE: ${{ env.DOCKER_REPO }}:${{ needs.bash_get_version.outputs.version }}
+    steps:
+      - name: executing remote ssh commands to deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASS }}
+          debug: true
+          script: |
+            docker pull ${{ env.DOCKER_IMAGE }}
+            docker stop ${{ env.GITHUB_REPO }}
+            docker remove ${{ env.GITHUB_REPO }}
+            docker run -d --name ${{ env.GITHUB_REPO }} ${{ DOCKER_IMAGE }}
