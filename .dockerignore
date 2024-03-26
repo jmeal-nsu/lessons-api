@@ -9,6 +9,7 @@ tests/
 
 README.md
 .git/
+.github/
 .gitignore
 *.log
 
