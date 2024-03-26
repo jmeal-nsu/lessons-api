@@ -1,6 +1,7 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import validator
 from enum import Enum
+from urllib.parse import quote
 import colorlog
 
 
@@ -19,7 +20,7 @@ class AppSettings(BaseSettings):
     @validator("log_level", pre=True)
     @classmethod
     def validate_log_level(cls, level: str) -> int:
-        return ColorLogLevel.__members__.get(level).value
+        return ColorLogLevel.__members__.get(level.upper()).value
 
     model_config = SettingsConfigDict(
         env_file=".env", env_prefix="APP_", extra="ignore"
@@ -28,6 +29,15 @@ class AppSettings(BaseSettings):
 
 @lambda _: _()
 class PostgresSettings(BaseSettings):
-    uri: str
+    host: str
+    port: int
+    username: str
+    password: str
+    database: str
+
+    @property
+    def uri(self):
+        pswd = quote(self.password).replace("%", "%%")
+        return f"postgresql+asyncpg://{self.username}:{pswd}@{self.host}:{self.port}/{self.database}"
 
     model_config = SettingsConfigDict(env_file=".env", env_prefix="PG_", extra="ignore")

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "lessons-api"
-version = "0.1.0"
+version = "0.1.2"
 description = ""
 authors = ["TJesT <alexeynospid@gmail.com>"]
 readme = "README.md"
@@ -14,6 +14,7 @@ colorlog = "^6.8.2"
 uvicorn = "^0.27.1"
 pydantic-settings = "^2.2.0"
 alembic = "^1.13.1"
+async-sqlalchemy = "^1.0.0"
 
 
 [tool.poetry.group.test.dependencies]
