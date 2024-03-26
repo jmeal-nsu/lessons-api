@@ -15,7 +15,7 @@ class ColorLogLevel(Enum):
 
 @lambda _: _()
 class AppSettings(BaseSettings):
-    log_level: int
+    log_level: int = "INFO"
 
     @validator("log_level", pre=True)
     @classmethod
@@ -29,11 +29,11 @@ class AppSettings(BaseSettings):
 
 @lambda _: _()
 class PostgresSettings(BaseSettings):
-    host: str
-    port: int
-    username: str
-    password: str
-    database: str
+    host: str = ""
+    port: int = 5432
+    username: str = ""
+    password: str = ""
+    database: str = ""
 
     @property
     def uri(self):
