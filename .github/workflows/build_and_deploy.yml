@@ -67,19 +67,4 @@ jobs:
           password: ${{ secrets.SSH_PASS }}
           debug: true
           script: |
-            bash -ec 'unset HISTFILE; # disable history
-            
-            echo "Stopping container ..."
-            docker stop ${{ env.GITHUB_REPO }}
-
-            echo "Pulling image ${{ env.DOCKER_IMAGE_NAME }}:${{ env.DOCKER_TAG }} ..."
-            docker pull ${{ env.DOCKER_REPO }}:${{ env.DOCKER_TAG }}
-            
-            echo "Saving secrets to $HOME ..."
-            umask 0077
-            echo ${{ secrets.ENV }} | base64 -di > $HOME/${{ github.event.repository.name }}.env
-            
-            # Starting container
-            echo "Starting container..."
-            docker remove ${{ env.GITHUB_REPO }}
-            docker run -d -p 8118:8118 --env-file=$HOME/${{ github.event.repository.name }}.env --name ${{ env.GITHUB_REPO }} ${{ env.DOCKER_REPO }}:${{ env.DOCKER_TAG }}'
+            docker stop lessons-api && docker pull ${{ env.DOCKER_REPO }}:${{ env.DOCKER_TAG }} && echo ${{ secrets.ENV }} | C:\Bin\base64 -di > "%userprofile%\${{ github.event.repository.name }}.env" && docker remove ${{ env.GITHUB_REPO }} && docker run -d -p 8118:8118 --env-file "%userprofile%\${{ github.event.repository.name }}.env" --name ${{ env.GITHUB_REPO }} ${{ env.DOCKER_REPO }}:${{ env.DOCKER_TAG }}
