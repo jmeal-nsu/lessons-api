@@ -5,6 +5,7 @@ from sqlalchemy.orm import mapped_column, relationship
 from src.core.db import PostgresBase
 from enum import Enum
 
+
 class DayOfAWeek(Enum):
     MONDAY = "Monday"
     TUESDAY = "Tuesday"
@@ -20,6 +21,7 @@ class LessonType(Enum):
     PRACTICE = "Practice"
     LABORATORY = "Laboratory"
 
+
 class Lesson(PostgresBase):
 
     __tablename__ = "lesson"
@@ -28,7 +30,7 @@ class Lesson(PostgresBase):
     start = Column(DateTime)
     subject = Column(String)
     type = Column(ENUM(LessonType, create_type=True), nullable=False)
-    teacher_id = mapped_column(ForeignKey("teacher.id"), nullable=False)
+    teacher_id = Column(Integer, ForeignKey("teacher.id"), nullable=False)
     teacher = relationship("Teacher")
-    place_id = mapped_column(ForeignKey("place.id"), nullable=False)
+    place_id = Column(Integer, ForeignKey("place.id"), nullable=False)
     place = relationship("Place")
