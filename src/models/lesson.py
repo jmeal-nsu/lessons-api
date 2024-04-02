@@ -27,7 +27,7 @@ class Lesson(PostgresBase):
     __tablename__ = "lesson"
 
     id = Column(Integer, primary_key=True)
-    day = Column(ENUM(DayOfAWeek, create_type=True), nullable=False)
+    week_day = Column(ENUM(DayOfAWeek, create_type=True), nullable=False)
     start = Column(TIME)
     subject = Column(String)
     type = Column(ENUM(LessonType, create_type=True), nullable=False)
