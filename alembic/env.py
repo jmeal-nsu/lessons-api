@@ -17,7 +17,7 @@ from src.models import *
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
-config.set_main_option("sqlalchemy.url", PostgresSettings.uri)
+config.set_main_option("sqlalchemy.url", PostgresSettings.alembic_uri)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.

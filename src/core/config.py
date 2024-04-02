@@ -47,4 +47,9 @@ class PostgresSettings(BaseSettings):
             database=self.database,
         )
 
+    @property
+    def alembic_uri(self):
+        pswd = quote(self.password).replace("%", "%%")
+        return f"postgresql+asyncpg://{self.username}:{pswd}@{self.host}:{self.port}/{self.database}"
+
     model_config = SettingsConfigDict(env_file=".env", env_prefix="PG_", extra="ignore")
