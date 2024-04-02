@@ -1,6 +1,6 @@
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
-from sqlalchemy.dialects.postgresql import ENUM
-from sqlalchemy.orm import mapped_column, relationship
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.dialects.postgresql import ENUM, TIME
+from sqlalchemy.orm import relationship
 
 from src.core.db import PostgresBase
 from enum import Enum
@@ -27,7 +27,7 @@ class Lesson(PostgresBase):
     __tablename__ = "lesson"
 
     id = Column(Integer, primary_key=True)
-    start = Column(DateTime)
+    start = Column(TIME)
     subject = Column(String)
     type = Column(ENUM(LessonType, create_type=True), nullable=False)
     teacher_id = Column(Integer, ForeignKey("teacher.id"), nullable=False)
