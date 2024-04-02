@@ -1,3 +1,4 @@
+from sqlalchemy.engine import URL
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import validator
 from enum import Enum
@@ -37,7 +38,13 @@ class PostgresSettings(BaseSettings):
 
     @property
     def uri(self):
-        pswd = quote(self.password).replace("%", "%%")
-        return f"postgresql+asyncpg://{self.username}:{pswd}@{self.host}:{self.port}/{self.database}"
+        return URL.create(
+            "postgresql+asyncpg",
+            username=self.username,
+            password=self.password,  # plain (unescaped) text
+            host=self.host,
+            port=self.port,
+            database=self.database,
+        )
 
     model_config = SettingsConfigDict(env_file=".env", env_prefix="PG_", extra="ignore")

@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.openapi.docs import get_swagger_ui_html
 
 from src.core.logger import logger
+from src.api import routers
 
 logger.debug("Main app initialization")
 
@@ -18,3 +19,7 @@ async def swagger_ui_html():
     return get_swagger_ui_html(
         openapi_url="/openapi.json", title="Realytics Markup API docs"
     )
+
+
+for router in routers:
+    app.include_router(router)
