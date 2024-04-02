@@ -10,4 +10,3 @@ class Teacher(PostgresBase):
     name = Column(String)
     surname = Column(String)
     patronymic = Column(String)
-    lesson = Column(Integer)
