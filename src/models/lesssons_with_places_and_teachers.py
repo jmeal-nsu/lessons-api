@@ -15,6 +15,6 @@ class LessonsWithPlacesAndTeachers(PostgresBase):
     type = Column(ENUM(LessonType, create_type=True), nullable=False)
     week_day = Column(ENUM(DayOfAWeek, create_type=True), nullable=False)
     start = Column(TIME, nullable=False)
-    cabinet = Column(String)
-    pavilion = Column(ENUM(Pavilion, create_type=True))
+    cabinet = Column(String, nullable=True)
+    pavilion = Column(ENUM(Pavilion, create_type=True), nullable=True)
     teacher = Column(String)

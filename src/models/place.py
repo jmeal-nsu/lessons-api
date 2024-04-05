@@ -3,6 +3,7 @@ from sqlalchemy.dialects.postgresql import ENUM
 from src.core.db import PostgresBase
 from enum import Enum
 
+
 class Pavilion(Enum):
     NEW = "new"
     MAIN = "main"
@@ -10,6 +11,8 @@ class Pavilion(Enum):
     SPORT_OLD = "sport_old"
     SPORT_NEW = "sport_new"
     STADIUM = "stadium"
+
+
 class Place(PostgresBase):
 
     __tablename__ = "place"
