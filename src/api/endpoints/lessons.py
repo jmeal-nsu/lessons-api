@@ -7,4 +7,4 @@ router = APIRouter(prefix="/lessons")
 
 @router.get("/timetable")
 async def get_timetable(session=Depends(get_db_session)):
-    return await lessons_crud.read_all(session)
+    return await lessons_crud.read_all(session, without_id=True)
