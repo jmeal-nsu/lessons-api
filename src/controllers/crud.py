@@ -9,6 +9,12 @@ from dataclasses import dataclass
 class BaseCRUD:
     model: DeclarativeBase
 
-    async def read_all(self, session: AsyncSession) -> tuple[tuple[Any]]:
+    async def read_all(
+        self, session: AsyncSession, *, without_id=False
+    ) -> tuple[tuple[Any]]:
         querry = select(self.model)
-        return (await session.execute(querry)).scalars().all()
+        rows = (await session.execute(querry)).scalars().all()
+        if without_id:
+            for row in rows:
+                del row.id
+        return rows
