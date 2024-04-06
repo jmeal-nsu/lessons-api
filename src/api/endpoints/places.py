@@ -7,7 +7,10 @@ router = APIRouter(prefix="/places")
 
 
 @router.get("/", status_code=status.HTTP_200_OK)
-async def get_places(session=Depends(get_db_session)) -> OnlinePlace | OfflinePlace: ...
+async def get_places(
+    session=Depends(get_db_session),
+) -> list[OnlinePlace | OfflinePlace]:
+    return await places_crud.read_all(session, without_id=True)
 
 
 @router.put("/", status_code=status.HTTP_201_CREATED)
