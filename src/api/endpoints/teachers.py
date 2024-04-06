@@ -7,7 +7,8 @@ router = APIRouter(prefix="/teachers")
 
 
 @router.get("/", status_code=status.HTTP_200_OK)
-async def get_teachers(session=Depends(get_db_session)): ...
+async def get_teachers(session=Depends(get_db_session)) -> list[Teacher]:
+    return await teachers_crud.read_all(session, without_id=True)
 
 
 @router.put("/", status_code=status.HTTP_201_CREATED)
