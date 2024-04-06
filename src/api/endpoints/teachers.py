@@ -12,4 +12,7 @@ async def get_teachers(session=Depends(get_db_session)) -> list[Teacher]:
 
 
 @router.put("/", status_code=status.HTTP_201_CREATED)
-async def put_teacher(teacher: Teacher, session=Depends(get_db_session)): ...
+async def put_teacher(
+    teacher: list[Teacher] | Teacher, session=Depends(get_db_session)
+):
+    await teachers_crud.insert(session, teacher)
