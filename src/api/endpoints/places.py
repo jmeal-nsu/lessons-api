@@ -5,6 +5,8 @@ from src.schemas import OfflinePlace, OnlinePlace
 
 router = APIRouter(prefix="/places")
 
+Place = OfflinePlace | OnlinePlace
+
 
 @router.get("/", status_code=status.HTTP_200_OK)
 async def get_places(
@@ -14,6 +16,5 @@ async def get_places(
 
 
 @router.put("/", status_code=status.HTTP_201_CREATED)
-async def put_place(
-    place: OfflinePlace | OnlinePlace, session=Depends(get_db_session)
-): ...
+async def put_place(place: list[Place] | Place, session=Depends(get_db_session)):
+    await places_crud.insert(session, place)
