@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "*", from="src"}]
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.10"
 fastapi = "^0.109.2"
 pydantic = "^2.6.1"
 colorlog = "^6.8.2"
