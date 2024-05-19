@@ -5,6 +5,8 @@ on:
     branches:
       - main
     types: [opened]
+  push:
+    branches: '**'
   workflow_dispatch:
 
 jobs:
