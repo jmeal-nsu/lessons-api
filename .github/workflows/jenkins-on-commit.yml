@@ -1,0 +1,21 @@
+name: Test with Jenkins
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened]
+  workflow_dispatch:
+
+jobs:
+  test_with_jenkins:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+    - name: trigger single Job
+      uses: appleboy/jenkins-action@master
+      with:
+        url: "http://jmeal-nsu.ru/jenkins"
+        user: "jija"
+        token: ${{ secrets.JENKINS_TOKEN }}
+        job: "jmeal-nsu-pytest"
